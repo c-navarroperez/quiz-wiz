@@ -1,37 +1,40 @@
 const startBtn = document.querySelector("#start");
+const questionDisplayDiv = document.querySelector("#questions");
+const questionTitle = document.querySelector("#question-title");
+const choicesDiv = document.querySelector("#choices");
+const questionsArr = questions;
 
+let currentQuestionIndex = 0;
 
-
-// A start button that when clicked the first question appears.
-// Event listener on button #start
 //when start button clicked
-
 function startQuiz() {
     let startScreen = document.querySelector("#start-screen");
     // then hide #start-screen
     startScreen.setAttribute("class", "hide");
     // loadQuestion function()
-    loadQuestions();
+    loadQuestion(currentQuestionIndex);
 }
 
-function loadQuestions() {
-    let questionDisplayDiv = document.querySelector("#questions");
-    // Take questions from questions.js and extract information to display it.
-    // Questions contain buttons for each answer.
-    // for(var questionObj of questions) {}
-   
+function loadQuestion(QuestionIndex) {
+    //Take questions from questions.js and extract information to display it.
+    console.log(currentQuestionIndex);
+    let currentQuestion = questionsArr[QuestionIndex];
+    let title = currentQuestion.title;
+    let choices = currentQuestion.choices;
+    let correctAnswer = currentQuestion.correctAnswer;
 
-        // <div id="questions" class="hide">
-        //     <h2 id="question-title"></h2>
-        //     <div id="choices" class="choices"></div>
-        // </div>
-    
+    questionTitle.innerText = title;
 
-        // .choices button
-        // ol
-        // li
+    for (let i = 0; i < choices.length; i++){
+        // Questions contain buttons for each answer.
+        choicesDiv.insertAdjacentHTML(
+            "beforeend",
+            `<button>${i+1}. ${choices[i]}</button>`
+        );
+    }
 
     questionDisplayDiv.setAttribute("class", "start");
+    choicesDiv.addEventListener('click', checkAnswer(correctAnswer));
 }
 
 
@@ -68,7 +71,10 @@ function loadQuestions() {
         </div>
     */
 
+        
 function init() {
+    // A start button that when clicked the first question appears.
+    // Event listener on button #start
     startBtn.addEventListener("click", startQuiz);
 }
 
