@@ -31,11 +31,17 @@ function countdown() {
     // Display initial time left
     countdownTimer.innerText = timeLeft;
     //Use setInterval() method to decrease the timer every 1000 milliseconds
-    setInterval(() => {
+    let timerInterval = setInterval(() => {
         // Decrease timer by one
         timeLeft--;
         // Display current time left
         countdownTimer.innerText = timeLeft;
+        // If time spent, end game and interval
+        if (timeLeft <= 0){
+            countdownTimer.innerText = "0";
+            clearInterval(timerInterval);
+            loadEndScreen();
+        }
     }, 1000);
 }  
 
