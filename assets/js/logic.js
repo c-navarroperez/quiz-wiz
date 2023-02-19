@@ -2,7 +2,10 @@ const startBtn = document.querySelector("#start");
 const questionDisplayDiv = document.querySelector("#questions");
 const questionTitle = document.querySelector("#question-title");
 const choicesDiv = document.querySelector("#choices");
+const feedbackDiv = document.querySelector("#feedback");
 const questionsArr = questions;
+const correctSound = new Audio("./assets/sfx/correct.wav");
+const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
 
 let currentQuestionIndex = 0;
 let currentQuestion = questionsArr[currentQuestionIndex];
@@ -29,7 +32,7 @@ function loadQuestion() {
     questionTitle.innerText = title;
 
     console.log("*********************************************************************************");
-
+    
     // Delete all answer choice buttons before adding new ones
     while(choicesDiv.hasChildNodes()){
         choicesDiv.removeChild(choicesDiv.children[0])
@@ -46,43 +49,35 @@ function loadQuestion() {
     questionDisplayDiv.setAttribute("class", "start");
 }
 
-
-//feedback
+// Function to check user answer against the solution and provide feedback
 function checkAnswer(event) {
     
     let answerBtnArr = event.target.innerText.split(". ");
     let answer = answerBtnArr[1];
-    console.log(correctAnswer);
-    console.log(answer);
     // When correct answer is clicked,
     if (answer === correctAnswer) {
-        // Give correct soundeffect feedback
-        // display "Correct!" feedback for 1 second
-        console.log("Correct!");
+        // Play "correct" soundeffect feedback
+        correctSound.play();
+        // display "Correct!" feedback for 1/2 second
+        displayFeedback("Correct!");
     } else {
         // When incorrect answer is clicked, 
-        // Give wrong soundeffect feedback
-        // display "Wrong!" feedback for 1 second
-        console.log("Wrong!");
+        // Play "incorrect" soundeffect feedback
+        incorrectSound.play();
+        // display "Wrong!" feedback for 1/2 second
+        displayFeedback("Wrong!");
     }
- 
-//feedbackDisplay 
-/*
-    //     determine feedback element text (right/ wrong)
-    //     display feedback 
-    //         // .feedback
 
-    // <div id="feedback" class="feedback hide"></div>
-
-    //     // Include soundeffects?
-    //             function playSound() {} 
-*/
-    
-    console.log(choicesDiv);
     // Update question index
     currentQuestionIndex++;
     // then the next question appears
     loadQuestion();
+}
+
+//feedback
+function displayFeedback(feedbackText){
+    feedbackDiv.innerText = feedbackText;
+    feedbackDiv.setAttribute("class", "start");
 }
 
 // The quiz should end when all questions are answered correctly
