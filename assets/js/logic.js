@@ -58,13 +58,13 @@ function checkAnswer(event) {
     if (answer === correctAnswer) {
         // Play "correct" soundeffect feedback
         correctSound.play();
-        // display "Correct!" feedback for 1/2 second
+        // display "Correct!" feedback
         displayFeedback("Correct!");
     } else {
         // When incorrect answer is clicked, 
         // Play "incorrect" soundeffect feedback
         incorrectSound.play();
-        // display "Wrong!" feedback for 1/2 second
+        // display "Wrong!" feedback
         displayFeedback("Wrong!");
     }
 
@@ -74,10 +74,15 @@ function checkAnswer(event) {
     loadQuestion();
 }
 
-//feedback
+// Display Feedback
 function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
+    // Display feedback section
     feedbackDiv.setAttribute("class", "start");
+    //Remove feedback section after 1/2 second (500 miliseconds)
+    setTimeout(()=> {   
+        feedbackDiv.setAttribute("class", "hide");
+    }, 500);
 }
 
 // The quiz should end when all questions are answered correctly
