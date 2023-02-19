@@ -1,4 +1,4 @@
-const questions = [
+const questionsList = [
     {
         title: 'What is the acromnym for the Document Object Model?',
         choices: ['JS', 'OBJ', 'DOM', 'ARR'],
@@ -22,12 +22,12 @@ const questions = [
                 Top border = 15 pixels
                 Bottom border = 10 pixels
                 Left border = 20 pixels
-                Right border = 5pixel`,
-        choices: [  'border-width:15px 20px 10px 5px;',
-                    'border-width:15px 10px 20px 5px;', 
-                    'border-width:15px 5px 10px 20px;',
-                    'border-width:10px 20px 15px 5px;'],
-        correctAnswer: 'border-width:15px 5px 10px 20px;'
+                Right border = 5 pixels`,
+        choices: [  'border-width: 15px 20px 10px 5px;',
+                    'border-width: 15px 10px 20px 5px;', 
+                    'border-width: 15px 5px 10px 20px;',
+                    'border-width: 10px 20px 15px 5px;'],
+        correctAnswer: 'border-width: 15px 5px 10px 20px;'
     },
     {
         title: 'How do you add a comment in JavaScript?',
@@ -78,5 +78,4 @@ const questions = [
                     'for i = 1 to 10'],
         correctAnswer: 'for (i = 0; i <= 10; i++)'
     },
-
 ];
