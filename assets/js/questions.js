@@ -78,5 +78,4 @@ const questionsList = [
                     'for i = 1 to 10'],
         correctAnswer: 'for (i = 0; i <= 10; i++)'
     },
-
 ];
