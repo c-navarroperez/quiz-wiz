@@ -1,4 +1,4 @@
-const questions = [
+const questionsList = [
     {
         title: 'What is the acromnym for the Document Object Model?',
         choices: ['JS', 'OBJ', 'DOM', 'ARR'],
