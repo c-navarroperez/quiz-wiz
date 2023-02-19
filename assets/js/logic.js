@@ -4,6 +4,7 @@ const questionTitle = document.querySelector("#question-title");
 const choicesDiv = document.querySelector("#choices");
 const feedbackDiv = document.querySelector("#feedback");
 const endScreen = document.querySelector("#end-screen");
+const countdownTimer = document.querySelector("#time")
 const questionsArr = questions;
 const correctSound = new Audio("./assets/sfx/correct.wav");
 const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
@@ -21,7 +22,22 @@ function startQuiz() {
     startScreen.setAttribute("class", "hide");
     // loadQuestion function()
     loadQuestion();
+    countdown();
 }
+
+function countdown() {
+    // Set Quiz timer
+    let timeLeft = 10;
+    // Display initial time left
+    countdownTimer.innerText = timeLeft;
+    //Use setInterval() method to decrease the timer every 1000 milliseconds
+    setInterval(() => {
+        // Decrease timer by one
+        timeLeft--;
+        // Display current time left
+        countdownTimer.innerText = timeLeft;
+    }, 1000);
+}  
 
 function loadQuestion() {
     //Take questions from questions.js and extract information to display it.
@@ -86,7 +102,7 @@ function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
     // Display feedback section
     feedbackDiv.classList.remove("hide");
-    //Remove feedback section after 1/2 second (500 miliseconds)
+    //Remove feedback section after 750 millsiseconds
     setTimeout(()=> {   
         feedbackDiv.setAttribute("class", "feedback hide");
     }, 750);
