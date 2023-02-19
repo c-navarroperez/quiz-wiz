@@ -6,14 +6,14 @@ const questions = [
     },
     {
         title: 'Inside which HTML element do we add the JavaScript file link?',
-        choices: ['<js>', '<javascript>', '<script>', '<src>'],
+        choices: ['&#60js&#62', '&#60javascript&#62', '&#60script&#62', '&#60src&#62'],
         correctAnswer: '<script>'
     },
     {
         title: 'In HTML, what is the correct syntax for referring to an external script called "example.js"?',
-        choices: [  '<script src="example.js">',
-                    '<script name="example.js">', 
-                    '<script href="example.js">'],
+        choices: [  '&#60script src="example.js"&#62',
+                    '&#60script name="example.js"&#62', 
+                    '&#60script href="example.js"&#62'],
         correctAnswer: '<script src="example.js">'
     },
     {
@@ -31,10 +31,10 @@ const questions = [
     },
     {
         title: 'How do you add a comment in JavaScript?',
-        choices: [  '<!--This a valid JS comment-->',
+        choices: [  '&#60!--This a valid JS comment--&#62',
                     '//This a valid JS comment', 
                     '**This a valid JS comment', 
-                    '\'This a valid JS comment'],
+                    '\'This a valid JS comment\''],
         correctAnswer: '//This a valid JS comment'
     },
     {
@@ -43,7 +43,7 @@ const questions = [
                     'console.log("Hello World");', 
                     'console.alert("Hello World");',
                     'console.print("Hello World");'],
-        correctAnswer: 'console.log("Hello World"); '
+        correctAnswer: 'console.log("Hello World");'
     },
     {
         title: 'Arrays in JavaScript can be used to store:',
@@ -72,11 +72,11 @@ const questions = [
     },
     {
         title: 'How do you write a FOR loop in JavaScript?',
-        choices: [  'for (i = 0; i <= 10)',
-                    'for (i <= 10; i++)', 
-                    'for (i = 0; i <= 10; i++)',
+        choices: [  'for (i = 0; i &#60= 10)',
+                    'for (i &#60= 10; i++)', 
+                    'for (i = 0; i &#60= 10; i++)',
                     'for i = 1 to 10'],
-        correctAnswer: 'for (i = 0; i <= 5; i++)'
+        correctAnswer: 'for (i = 0; i <= 10; i++)'
     },
 
 ];
