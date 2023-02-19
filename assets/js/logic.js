@@ -46,7 +46,7 @@ function loadQuestion() {
         );
     }
 
-    questionDisplayDiv.setAttribute("class", "start");
+    questionDisplayDiv.classList.remove("hide");
 }
 
 // Function to check user answer against the solution and provide feedback
@@ -78,7 +78,7 @@ function checkAnswer(event) {
 function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
     // Display feedback section
-    feedbackDiv.setAttribute("class", "start");
+    feedbackDiv.classList.remove("hide");;
     //Remove feedback section after 1/2 second (500 miliseconds)
     setTimeout(()=> {   
         feedbackDiv.setAttribute("class", "hide");
