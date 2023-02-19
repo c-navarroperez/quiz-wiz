@@ -3,6 +3,7 @@ const questionDisplayDiv = document.querySelector("#questions");
 const questionTitle = document.querySelector("#question-title");
 const choicesDiv = document.querySelector("#choices");
 const feedbackDiv = document.querySelector("#feedback");
+const endScreen = document.querySelector("#end-screen");
 const questionsArr = questions;
 const correctSound = new Audio("./assets/sfx/correct.wav");
 const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
@@ -29,15 +30,15 @@ function loadQuestion() {
     choices = currentQuestion.choices;
     correctAnswer = currentQuestion.correctAnswer;
 
+    // Set question title
     questionTitle.innerText = title;
-
-    console.log("*********************************************************************************");
     
     // Delete all answer choice buttons before adding new ones
     while(choicesDiv.hasChildNodes()){
         choicesDiv.removeChild(choicesDiv.children[0])
     }
 
+    // Insert HTML buttons for every answer choice
     for (let i = 0; i < choices.length; i++){
         // Questions contain buttons for each answer.
         choicesDiv.insertAdjacentHTML(
@@ -51,9 +52,9 @@ function loadQuestion() {
 
 // Function to check user answer against the solution and provide feedback
 function checkAnswer(event) {
-    
     let answerBtnArr = event.target.innerText.split(". ");
     let answer = answerBtnArr[1];
+
     // When correct answer is clicked,
     if (answer === correctAnswer) {
         // Play "correct" soundeffect feedback
@@ -61,41 +62,40 @@ function checkAnswer(event) {
         // display "Correct!" feedback
         displayFeedback("Correct!");
     } else {
-        // When incorrect answer is clicked, 
-        // Play "incorrect" soundeffect feedback
+        // When incorrect answer is clicked, play "incorrect" soundeffect feedback
         incorrectSound.play();
         // display "Wrong!" feedback
         displayFeedback("Wrong!");
     }
 
-    // Update question index
-    currentQuestionIndex++;
-    // then the next question appears
-    loadQuestion();
+    // The quiz should end when all questions are answered correctly
+    if (currentQuestionIndex < questionsArr.length - 1) {
+        // Update question index
+        currentQuestionIndex++;
+        // then the next question appears
+        loadQuestion();
+    } else {
+        setTimeout(()=> {   
+            loadEndScreen();
+        }, 750);
+    }
 }
 
 // Display Feedback
 function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
     // Display feedback section
-    feedbackDiv.classList.remove("hide");;
+    feedbackDiv.classList.remove("hide");
     //Remove feedback section after 1/2 second (500 miliseconds)
     setTimeout(()=> {   
-        feedbackDiv.setAttribute("class", "hide");
-    }, 500);
+        feedbackDiv.setAttribute("class", "feedback hide");
+    }, 750);
 }
 
-// The quiz should end when all questions are answered correctly
-/*
-    <div id="end-screen" class="hide">
-        <h2>All done!</h2>
-        <p>Your final score is <span id="final-score"></span>.</p>
-        <p>
-            Enter initials: <input type="text" id="initials" max="3" />
-            <button id="submit">Submit</button>
-        </p>
-    </div>
-*/
+function loadEndScreen () {
+    questionDisplayDiv.setAttribute("class", "hide");
+    endScreen.classList.remove("hide");;
+}
 
 // Add event listener for the Choices <div>
 choicesDiv.addEventListener('click', (event) => {
@@ -105,7 +105,6 @@ choicesDiv.addEventListener('click', (event) => {
     }
 });
         
-
 function init() {
     // A start button that when clicked the first question appears.
     startBtn.onclick = () => startQuiz();
