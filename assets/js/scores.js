@@ -4,17 +4,16 @@ const clearListBtn = document.querySelector('#clear');
 
 // Display Highscores function ()
 
-//Event Listener
+// Event Listener for the Clear Highscores button
 clearListBtn.addEventListener('click', () => {
+    // Remove scoreboard from local storage
     localStorage.removeItem('scoreBoard');
-    while(scoreList.hasChildNodes()){
-        scoreList.removeChild(scoreList.children[0]);
-    }
+    // Update the Highscores displayed to empty
 });
 
 function init (){
     //Display scoreboard stored in local storage
 }
 
-//init scoreboard
+// initialise Highscores display
 init();
