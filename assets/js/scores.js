@@ -28,11 +28,11 @@ function displayHighscores() {
     let storedScores = JSON.parse(localStorage.getItem('scoreBoard'));
     // Sort scores in descending order
     orderScores(storedScores);
-    // Insert Highscores recursively
-    for (let userScore of storedScores) {
+    // Insert first 10 Highscores recursively
+    for (let i = 0; i < 10; i++) {
         highscoresDisplay.insertAdjacentHTML(
             'beforeend',
-            `<li class="score">${userScore.initials} - ${userScore.score}</li>`
+            `<li class="score">${storedScores[i].initials} - ${storedScores[i].score}</li>`
         );
     }
 }
