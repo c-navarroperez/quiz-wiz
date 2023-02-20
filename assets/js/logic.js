@@ -137,16 +137,25 @@ function updateLocalStorage (initials) {
     let newUserScore = displayFinalScore.innerText;
     // create user object to store initials and score
     let userDataObj = { initials: initials, score: newUserScore };
-    // store user data in local storage
-    let userArr = [userDataObj];
-    localStorage.setItem("scoreBoard", JSON.stringify(userArr));
+
+    // Check for existing scoreboard 
+    if (localStorage.getItem("scoreBoard") !== null) {
+        let scoreBoard = JSON.parse(localStorage.getItem("scoreBoard"));
+        // Update scoreboard
+        scoreBoard.push(userDataObj);
+        localStorage.setItem("scoreBoard", JSON.stringify(scoreBoard));
+    } else {
+        // store user data in local storage
+        let userArr = [userDataObj];
+        localStorage.setItem("scoreBoard", JSON.stringify(userArr));
+    }
 }
 
 // Function to display highscores
 function displayHighscores () {
     // Open highscores page
 
-    // Display highscores from localStorage
+    // Display highscores from local storage
 }
 
 
