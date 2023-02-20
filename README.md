@@ -10,14 +10,13 @@ The application files could also be used by those learning to code, who would li
 
 This app runs in the browser, and features dynamically updated HTML and CSS powered by JavaScript.
 
-Find a [link to the deployed website here]().
+Find a [link to the deployed website here](https://c-navarroperez.github.io/quiz-wiz/).
 
 <br>
 
 ## Usage 
 
 <br />
-
 
 <div align="center">
   <img src=".\assets\images\home-page.png" alt="The screenshot displays the home page, showing a start button to begin the quiz." style="width: 80%"/>
@@ -34,7 +33,6 @@ From the landing page press `Start`; the questions will be shown a multiple-choi
 </div>
 
 
-
 <br />
 
 CLick on the answer of your choosing to advance to the next question.
@@ -43,7 +41,7 @@ The quiz operates on a timer (top left corner of the screen). Your final score w
 
 Feedback will be displayed and a sound effect will play, to inform you on wether you got the question right or wrong.
 
-Upon completing the last question, the user will be taken to the end screen, where they will be afforded the chance to log their score to be stored in the local browser scoreboard.
+Upon completing the last question, the user will be taken to the end screen, where they will be afforded the chance to log their score to be stored to the scoreboard in the browser's Local Storage.
 
 <br />
 
@@ -58,7 +56,7 @@ The user will then be redirected automatically to the Highscores page to see how
 <br />
 
 <div align="center">
-  <img src=".\assets\images\highscore-leaderboard.png" alt="Highscore leaderboard displayed, with options to go back to the home page or clear the leaderboard." style="width: 80%"/>
+  <img src=".\assets\images\highscore-leaderboard.png" alt="High score leader board displayed, with options to go back to the home page or clear the leader board." style="width: 80%"/>
 </div>
 
 <br />
@@ -69,7 +67,6 @@ From the highscores page you can either press `Go Back` to return to the home pa
 
 ## Contributing 
 Please email me @ carlosnavarro.brs@gmail.com or report issues directly [here](https://github.com/c-navarroperez/README-Generator-Pro/issues).
-
 
 ---
 
