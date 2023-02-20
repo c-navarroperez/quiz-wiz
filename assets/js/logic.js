@@ -20,6 +20,7 @@ let timeLeft = 1; // Set Quiz timer to 100s
 let timerInterval;
 
 
+/* Functions block */
 
 // Function to start quiz
 function startQuiz() {
@@ -131,8 +132,21 @@ function loadEndScreen (finalScore) {
 }
 
 // Function to update local storage with new score
-function updateLocalStorage () {
+function updateLocalStorage (initials) {
+    // retreive final score
+    let newUserScore = displayFinalScore.innerText;
+    // create user object to store initials and score
+    let userDataObj = { initials: initials, score: newUserScore };
+    // store user data in local storage
+    let userArr = [userDataObj];
+    localStorage.setItem("scoreBoard", JSON.stringify(userArr));
+}
 
+// Function to display highscores
+function displayHighscores () {
+    // Open highscores page
+
+    // Display highscores from localStorage
 }
 
 
