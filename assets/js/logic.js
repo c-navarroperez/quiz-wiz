@@ -1,30 +1,37 @@
-const startScreen = document.querySelector("#start-screen");
-const startBtn = document.querySelector("#start");
-const questionDisplayDiv = document.querySelector("#questions");
-const questionTitle = document.querySelector("#question-title");
-const choicesDiv = document.querySelector("#choices");
-const feedbackDiv = document.querySelector("#feedback");
-const endScreen = document.querySelector("#end-screen");
-const countdownTimer = document.querySelector("#time")
-const displayFinalScore = document.querySelector("#final-score")
-const correctSound = new Audio("./assets/sfx/correct.wav");
-const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
+/* DOM element references */
+const startScreen = document.querySelector('#start-screen');
+const startBtn = document.querySelector('#start');
+const questionDisplayDiv = document.querySelector('#questions');
+const questionTitle = document.querySelector('#question-title');
+const choicesDiv = document.querySelector('#choices');
+const feedbackDiv = document.querySelector('#feedback');
+const endScreen = document.querySelector('#end-screen');
+const countdownTimer = document.querySelector('#time');
+const displayFinalScore = document.querySelector('#final-score');
+const userInitials = document.querySelector('#initials');
+const submitBtn = document.querySelector('#submit');
+const correctSound = new Audio('./assets/sfx/correct.wav');
+const incorrectSound = new Audio('./assets/sfx/incorrect.wav');
 
+/* Global Variables */
 let currentQuestionIndex = 0;
-let correctAnswer = "";
+let correctAnswer = '';
 let timeLeft = 100; // Set Quiz timer to 100s
 let timerInterval;
 
 
-//when start button clicked
+/* Functions block */
+
+// Function to start quiz
 function startQuiz() {
     // then hide the start-screen
-    startScreen.setAttribute("class", "hide");
+    startScreen.setAttribute('class', 'hide');
     // loadQuestion function()
     loadQuestion();
     countdown();
 }
 
+// Function to update a countdown
 function countdown() {
     // Display initial time left
     countdownTimer.innerText = timeLeft;
@@ -42,6 +49,7 @@ function countdown() {
     }, 1000);
 }  
 
+// Function to load questions
 function loadQuestion() {
     //Take questions from questions.js and extract information to display it.
     let currentQuestion = questionsList[currentQuestionIndex];
@@ -53,37 +61,35 @@ function loadQuestion() {
     questionTitle.innerText = title;
     
     // Delete all answer choice buttons before adding new ones
-    while(choicesDiv.hasChildNodes()){
-        choicesDiv.removeChild(choicesDiv.children[0])
-    }
+    choicesDiv.innerHTML = '';
 
     // Insert HTML buttons for every answer choice
     for (let i = 0; i < choices.length; i++){
         // Questions contain buttons for each answer.
         choicesDiv.insertAdjacentHTML(
-            "beforeend",
-            `<button class="answerBtn">${i+1}. ${choices[i]}</button>`
+            'beforeend',
+            `<button class='answerBtn'>${i+1}. ${choices[i]}</button>`
         );
     }
-    questionDisplayDiv.classList.remove("hide");
+    questionDisplayDiv.classList.remove('hide');
 }
 
 // Function to check user answer against the solution and provide feedback
 function checkAnswer(event) {
-    let answerBtnArr = event.target.innerText.split(". ");
+    let answerBtnArr = event.target.innerText.split('. ');
     let answer = answerBtnArr[1];
 
     // When correct answer is clicked,
     if (answer === correctAnswer) {
-        // Play "correct" soundeffect
+        // Play 'correct' soundeffect
         correctSound.play();
-        // display "Correct!"
-        displayFeedback("Correct!");
+        // display 'Correct!'
+        displayFeedback('Correct!');
     } else {
-        // Play "incorrect" soundeffect 
+        // Play 'incorrect' soundeffect 
         incorrectSound.play();
-        // display "Wrong!"
-        displayFeedback("Wrong!");
+        // display 'Wrong!'
+        displayFeedback('Wrong!');
         // Deduct 10 seconds from the timer
         timeLeft -= 10;
     }
@@ -107,30 +113,70 @@ function checkAnswer(event) {
 function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
     // Display feedback section
-    feedbackDiv.classList.remove("hide");
+    feedbackDiv.classList.remove('hide');
     //Remove feedback section after 750 millsiseconds
     setTimeout(()=> {   
-        feedbackDiv.setAttribute("class", "feedback hide");
+        feedbackDiv.setAttribute('class', 'feedback hide');
     }, 750);
 }
 
 // Load end screen with score
 function loadEndScreen (finalScore) {
-    questionDisplayDiv.setAttribute("class", "hide");
+    questionDisplayDiv.setAttribute('class', 'hide');
     clearInterval(timerInterval);
-    countdownTimer.innerText = "0";
+    countdownTimer.innerText = '0';
     displayFinalScore.innerText = finalScore;
-    endScreen.classList.remove("hide");
+    endScreen.classList.remove('hide');
 }
 
-// Add event listener for the Choices <div>
+// Function to update local storage with new score
+function updateLocalStorage (initials) {
+    // retreive final score
+    let newUserScore = displayFinalScore.innerText;
+    // create user object to store initials and score
+    let userDataObj = { initials: initials, score: newUserScore };
+
+    // Check for existing scoreboard 
+    if (localStorage.getItem('scoreBoard') !== null) {
+        let scoreBoard = JSON.parse(localStorage.getItem('scoreBoard'));
+        // Update scoreboard
+        scoreBoard.push(userDataObj);
+        localStorage.setItem('scoreBoard', JSON.stringify(scoreBoard));
+    } else {
+        // store user data in local storage
+        let userArr = [userDataObj];
+        localStorage.setItem('scoreBoard', JSON.stringify(userArr));
+    }
+}
+
+
+/* Event listeners */
+
+// Event listener for the answer choices
 choicesDiv.addEventListener('click', (event) => {
     // If a button has been pressed
-    if (event.target.className === "answerBtn"){ 
+    if (event.target.className === 'answerBtn'){ 
         checkAnswer(event)
     }
 });
+
+// Event listener for the submit score button
+submitBtn.addEventListener('click', () => {
+    let initials = userInitials.value;
+    if (initials.length > 3) {
+        userInitials.value = '';
+        alert('Please enter maximum 3 characters');
+        return;
+    } else {
+        updateLocalStorage(initials);
+        // Open highscores page
+        location.href = '././highscores.html';
+    }
+});
         
+
+/* App Initialisation */
+
 function init() {
     // A start button that when clicked the first question appears.
     startBtn.onclick = () => startQuiz();
