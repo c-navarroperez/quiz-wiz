@@ -1,21 +1,21 @@
 /* DOM element references */
-const startScreen = document.querySelector("#start-screen");
-const startBtn = document.querySelector("#start");
-const questionDisplayDiv = document.querySelector("#questions");
-const questionTitle = document.querySelector("#question-title");
-const choicesDiv = document.querySelector("#choices");
-const feedbackDiv = document.querySelector("#feedback");
-const endScreen = document.querySelector("#end-screen");
-const countdownTimer = document.querySelector("#time");
-const displayFinalScore = document.querySelector("#final-score");
-const userInitials = document.querySelector("#initials");
-const submitBtn = document.querySelector("#submit");
-const correctSound = new Audio("./assets/sfx/correct.wav");
-const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
+const startScreen = document.querySelector('#start-screen');
+const startBtn = document.querySelector('#start');
+const questionDisplayDiv = document.querySelector('#questions');
+const questionTitle = document.querySelector('#question-title');
+const choicesDiv = document.querySelector('#choices');
+const feedbackDiv = document.querySelector('#feedback');
+const endScreen = document.querySelector('#end-screen');
+const countdownTimer = document.querySelector('#time');
+const displayFinalScore = document.querySelector('#final-score');
+const userInitials = document.querySelector('#initials');
+const submitBtn = document.querySelector('#submit');
+const correctSound = new Audio('./assets/sfx/correct.wav');
+const incorrectSound = new Audio('./assets/sfx/incorrect.wav');
 
 /* Global Variables */
 let currentQuestionIndex = 0;
-let correctAnswer = "";
+let correctAnswer = '';
 let timeLeft = 1; // Set Quiz timer to 100s
 let timerInterval;
 
@@ -25,7 +25,7 @@ let timerInterval;
 // Function to start quiz
 function startQuiz() {
     // then hide the start-screen
-    startScreen.setAttribute("class", "hide");
+    startScreen.setAttribute('class', 'hide');
     // loadQuestion function()
     loadQuestion();
     countdown();
@@ -69,29 +69,29 @@ function loadQuestion() {
     for (let i = 0; i < choices.length; i++){
         // Questions contain buttons for each answer.
         choicesDiv.insertAdjacentHTML(
-            "beforeend",
-            `<button class="answerBtn">${i+1}. ${choices[i]}</button>`
+            'beforeend',
+            `<button class='answerBtn'>${i+1}. ${choices[i]}</button>`
         );
     }
-    questionDisplayDiv.classList.remove("hide");
+    questionDisplayDiv.classList.remove('hide');
 }
 
 // Function to check user answer against the solution and provide feedback
 function checkAnswer(event) {
-    let answerBtnArr = event.target.innerText.split(". ");
+    let answerBtnArr = event.target.innerText.split('. ');
     let answer = answerBtnArr[1];
 
     // When correct answer is clicked,
     if (answer === correctAnswer) {
-        // Play "correct" soundeffect
+        // Play 'correct' soundeffect
         correctSound.play();
-        // display "Correct!"
-        displayFeedback("Correct!");
+        // display 'Correct!'
+        displayFeedback('Correct!');
     } else {
-        // Play "incorrect" soundeffect 
+        // Play 'incorrect' soundeffect 
         incorrectSound.play();
-        // display "Wrong!"
-        displayFeedback("Wrong!");
+        // display 'Wrong!'
+        displayFeedback('Wrong!');
         // Deduct 10 seconds from the timer
         timeLeft -= 10;
     }
@@ -115,20 +115,20 @@ function checkAnswer(event) {
 function displayFeedback(feedbackText){
     feedbackDiv.innerText = feedbackText;
     // Display feedback section
-    feedbackDiv.classList.remove("hide");
+    feedbackDiv.classList.remove('hide');
     //Remove feedback section after 750 millsiseconds
     setTimeout(()=> {   
-        feedbackDiv.setAttribute("class", "feedback hide");
+        feedbackDiv.setAttribute('class', 'feedback hide');
     }, 750);
 }
 
 // Load end screen with score
 function loadEndScreen (finalScore) {
-    questionDisplayDiv.setAttribute("class", "hide");
+    questionDisplayDiv.setAttribute('class', 'hide');
     clearInterval(timerInterval);
-    countdownTimer.innerText = "0";
+    countdownTimer.innerText = '0';
     displayFinalScore.innerText = finalScore;
-    endScreen.classList.remove("hide");
+    endScreen.classList.remove('hide');
 }
 
 // Function to update local storage with new score
@@ -139,15 +139,15 @@ function updateLocalStorage (initials) {
     let userDataObj = { initials: initials, score: newUserScore };
 
     // Check for existing scoreboard 
-    if (localStorage.getItem("scoreBoard") !== null) {
-        let scoreBoard = JSON.parse(localStorage.getItem("scoreBoard"));
+    if (localStorage.getItem('scoreBoard') !== null) {
+        let scoreBoard = JSON.parse(localStorage.getItem('scoreBoard'));
         // Update scoreboard
         scoreBoard.push(userDataObj);
-        localStorage.setItem("scoreBoard", JSON.stringify(scoreBoard));
+        localStorage.setItem('scoreBoard', JSON.stringify(scoreBoard));
     } else {
         // store user data in local storage
         let userArr = [userDataObj];
-        localStorage.setItem("scoreBoard", JSON.stringify(userArr));
+        localStorage.setItem('scoreBoard', JSON.stringify(userArr));
     }
 }
 
@@ -157,7 +157,7 @@ function updateLocalStorage (initials) {
 // Event listener for the answer choices
 choicesDiv.addEventListener('click', (event) => {
     // If a button has been pressed
-    if (event.target.className === "answerBtn"){ 
+    if (event.target.className === 'answerBtn'){ 
         checkAnswer(event)
     }
 });
@@ -166,13 +166,13 @@ choicesDiv.addEventListener('click', (event) => {
 submitBtn.addEventListener('click', () => {
     let initials = userInitials.value;
     if (initials.length > 3) {
-        userInitials.value = "";
-        alert("Please enter maximum 3 characters");
+        userInitials.value = '';
+        alert('Please enter maximum 3 characters');
         return;
     } else {
         updateLocalStorage(initials);
         // Open highscores page
-        location.href = "././highscores.html";
+        location.href = '././highscores.html';
     }
 });
         
