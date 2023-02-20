@@ -127,7 +127,14 @@ function loadEndScreen (finalScore) {
 
 // Event listener for the submit score button
 submitBtn.addEventListener('click', () => {
-    console.log(userInitials.value);
+    let initials = userInitials.value;
+    if (initials.length > 3) {
+        userInitials.value = "";
+        alert("Please enter maximum 3 characters");
+        return;
+    } else {
+        // Update local storage
+    }
 });
 
 // Add event listener for the Choices <div>
