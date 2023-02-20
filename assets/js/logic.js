@@ -151,13 +151,6 @@ function updateLocalStorage (initials) {
     }
 }
 
-// Function to display highscores
-function displayHighscores () {
-    // Open highscores page
-
-    // Display highscores from local storage
-}
-
 
 /* Event listeners */
 
@@ -178,6 +171,8 @@ submitBtn.addEventListener('click', () => {
         return;
     } else {
         updateLocalStorage(initials);
+        // Open highscores page
+        location.href = "././highscores.html";
     }
 });
         
