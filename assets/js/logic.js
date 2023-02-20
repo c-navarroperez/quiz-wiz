@@ -1,3 +1,4 @@
+/* DOM element references */
 const startScreen = document.querySelector("#start-screen");
 const startBtn = document.querySelector("#start");
 const questionDisplayDiv = document.querySelector("#questions");
@@ -12,13 +13,15 @@ const submitBtn = document.querySelector("#submit");
 const correctSound = new Audio("./assets/sfx/correct.wav");
 const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
 
+/* Global Variables */
 let currentQuestionIndex = 0;
 let correctAnswer = "";
 let timeLeft = 1; // Set Quiz timer to 100s
 let timerInterval;
 
 
-//when start button clicked
+
+// Function to start quiz
 function startQuiz() {
     // then hide the start-screen
     startScreen.setAttribute("class", "hide");
@@ -27,6 +30,7 @@ function startQuiz() {
     countdown();
 }
 
+// Function to update a countdown
 function countdown() {
     // Display initial time left
     countdownTimer.innerText = timeLeft;
@@ -44,6 +48,7 @@ function countdown() {
     }, 1000);
 }  
 
+// Function to load questions
 function loadQuestion() {
     //Take questions from questions.js and extract information to display it.
     let currentQuestion = questionsList[currentQuestionIndex];
@@ -125,6 +130,22 @@ function loadEndScreen (finalScore) {
     endScreen.classList.remove("hide");
 }
 
+// Function to update local storage with new score
+function updateLocalStorage () {
+
+}
+
+
+/* Event listeners */
+
+// Event listener for the answer choices
+choicesDiv.addEventListener('click', (event) => {
+    // If a button has been pressed
+    if (event.target.className === "answerBtn"){ 
+        checkAnswer(event)
+    }
+});
+
 // Event listener for the submit score button
 submitBtn.addEventListener('click', () => {
     let initials = userInitials.value;
@@ -133,18 +154,13 @@ submitBtn.addEventListener('click', () => {
         alert("Please enter maximum 3 characters");
         return;
     } else {
-        // Update local storage
-    }
-});
-
-// Add event listener for the Choices <div>
-choicesDiv.addEventListener('click', (event) => {
-    // If a button has been pressed
-    if (event.target.className === "answerBtn"){ 
-        checkAnswer(event)
+        updateLocalStorage(initials);
     }
 });
         
+
+/* App Initialisation */
+
 function init() {
     // A start button that when clicked the first question appears.
     startBtn.onclick = () => startQuiz();
