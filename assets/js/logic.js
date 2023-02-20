@@ -16,7 +16,7 @@ const incorrectSound = new Audio('./assets/sfx/incorrect.wav');
 /* Global Variables */
 let currentQuestionIndex = 0;
 let correctAnswer = '';
-let timeLeft = 1; // Set Quiz timer to 100s
+let timeLeft = 10; // Set Quiz timer to 100s
 let timerInterval;
 
 
@@ -61,9 +61,7 @@ function loadQuestion() {
     questionTitle.innerText = title;
     
     // Delete all answer choice buttons before adding new ones
-    while(choicesDiv.hasChildNodes()){
-        choicesDiv.removeChild(choicesDiv.children[0])
-    }
+    choicesDiv.innerHTML = '';
 
     // Insert HTML buttons for every answer choice
     for (let i = 0; i < choices.length; i++){
