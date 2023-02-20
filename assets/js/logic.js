@@ -16,7 +16,7 @@ const incorrectSound = new Audio('./assets/sfx/incorrect.wav');
 /* Global Variables */
 let currentQuestionIndex = 0;
 let correctAnswer = '';
-let timeLeft = 10; // Set Quiz timer to 100s
+let timeLeft = 100; // Set Quiz timer to 100s
 let timerInterval;
 
 
