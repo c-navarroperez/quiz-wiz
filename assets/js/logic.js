@@ -5,14 +5,16 @@ const questionTitle = document.querySelector("#question-title");
 const choicesDiv = document.querySelector("#choices");
 const feedbackDiv = document.querySelector("#feedback");
 const endScreen = document.querySelector("#end-screen");
-const countdownTimer = document.querySelector("#time")
-const displayFinalScore = document.querySelector("#final-score")
+const countdownTimer = document.querySelector("#time");
+const displayFinalScore = document.querySelector("#final-score");
+const userInitials = document.querySelector("#initials");
+const submitBtn = document.querySelector("#submit");
 const correctSound = new Audio("./assets/sfx/correct.wav");
 const incorrectSound = new Audio("./assets/sfx/incorrect.wav");
 
 let currentQuestionIndex = 0;
 let correctAnswer = "";
-let timeLeft = 100; // Set Quiz timer to 100s
+let timeLeft = 1; // Set Quiz timer to 100s
 let timerInterval;
 
 
@@ -122,6 +124,11 @@ function loadEndScreen (finalScore) {
     displayFinalScore.innerText = finalScore;
     endScreen.classList.remove("hide");
 }
+
+// Event listener for the submit score button
+submitBtn.addEventListener('click', () => {
+    console.log(userInitials.value);
+});
 
 // Add event listener for the Choices <div>
 choicesDiv.addEventListener('click', (event) => {
